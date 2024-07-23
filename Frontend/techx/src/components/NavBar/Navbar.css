@@ -1,0 +1,13 @@
+/* Add this to your main CSS file (e.g., styles.css) */
+.underline-space::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+  
+    bottom: -6px; /* Adjust this value to change the space between text and underline */
+    height: 2px; /* Adjust this value to change the thickness of the underline */
+    background-color: #25AEFF; 
+    margin-top: 3px;
+    /* Uses the current text color */
+  }
