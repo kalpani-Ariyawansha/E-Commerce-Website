@@ -1,24 +1,22 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import PopularCard from '../../components/Popularcard/PopularCard'
 import Category from '../../components/Category/Category'
-
+import { categories } from '../../assets/data/data';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-
 import 'swiper/css';
-
-
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
-
-
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import Header from '../../components/Header/Header';
+import { specialOffer } from '../../assets/data/data';
+
+
+
+
+
+
 
 function Home() {
-
-
   const slidersettings = {
     slidesPerView : 2,
     spaceBetween : 5,
@@ -33,11 +31,13 @@ function Home() {
             slidesPerView: 5
         },
         1100 : {
-            slidesPerView: 8
+            slidesPerView: 9
         }
 
     }
   }
+
+ 
   
   return (
     <div className='flex flex-col max-w-screen-xl mx-auto '>
@@ -60,14 +60,14 @@ function Home() {
         
         className="mySwiper"
       >
-        <SwiperSlide><Header/></SwiperSlide>
-        <SwiperSlide><Header/></SwiperSlide>
-        <SwiperSlide><Header/></SwiperSlide>
-        
-        
-        
+        {specialOffer?.map((item, index) => (<SwiperSlide key={index}><Header item={item}/></SwiperSlide>))}
       </Swiper>
       </div>
+        
+       
+        
+        
+        
 
 
       {/* Categories */}
@@ -97,21 +97,14 @@ function Home() {
             onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => console.log(swiper)}
           >
-            <SwiperSlide><Category/></SwiperSlide>
-            <SwiperSlide><Category/></SwiperSlide>
-            <SwiperSlide><Category/></SwiperSlide>
-            <SwiperSlide><Category/></SwiperSlide>
-            <SwiperSlide><Category/></SwiperSlide>
-            <SwiperSlide><Category/></SwiperSlide>
-            <SwiperSlide><Category/></SwiperSlide>
-            <SwiperSlide><Category/></SwiperSlide>
-            <SwiperSlide><Category/></SwiperSlide>
-            <SwiperSlide><Category/></SwiperSlide>
-            <SwiperSlide><Category/></SwiperSlide>
-            <SwiperSlide><Category/></SwiperSlide>
+            {categories.map((category, index) => (<SwiperSlide key={index}><Category category={category} /></SwiperSlide>))}
+            
+            
           </Swiper>
         </div>
       </div>
+
+
 
       {/* Popular section */}
       <div className='flex flex-col mx-auto mt-14 mb-14'>
@@ -127,6 +120,8 @@ function Home() {
           <PopularCard/>
         </div>
       </div>
+      
+
       
       {/* Contact us */}
       <div className='flex flex-col sm:w-[80vh] w-[40vh] gap-4 mx-auto mb-7 mt-7'>
