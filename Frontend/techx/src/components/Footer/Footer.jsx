@@ -2,12 +2,12 @@ import React from 'react'
 
 function Footer() {
   return (
-    <div className='flex flex-col h-[40vh] sm:h-[50vh] p-5  bg-[#111111] max-w-screen-xl mx-auto '>
+    <div className='flex flex-col h-[40vh] sm:h-[50vh] p-5  bg-[#111111] w-full mx-auto '>
       
       <div className='flex flex-row justify-around items-start'>
         <div className='flex flex-col gap-3'>
           <span className='flex flex-row text-white text-2xl sm:text-4xl font-semibold'>tech<span className='text-[#25AEFF] text-2xl sm:text-4xl font-semibold'>X</span></span>
-          <span className='text-white w-64 text-xs font-medium'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas quam quaerat, natus quasi earum ad?</span>
+          <span className='text-white w-40 sm:w-64 text-xs font-medium'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas quam quaerat, natus quasi earum ad?</span>
           <span className='text-xs text-white font-medium'>No 112,Galkiss,Colombo 07</span>
         </div>
 

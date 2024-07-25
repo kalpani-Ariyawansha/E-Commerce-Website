@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { IoMdArrowDropdown } from "react-icons/io";
 import { RxHamburgerMenu } from "react-icons/rx";
 import './Navbar.css'
@@ -7,6 +7,25 @@ function NavBar() {
   const [show, setShow] = useState(false)
   const [selected, setSelected] = useState('ALL')
   const [showMenu, setShowMenu] = useState(false)
+  const menuRef = useRef(null);
+  const toggleRef = useRef(null);
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setShow(false);
+    }
+    if (toggleRef.current && !toggleRef.current.contains(event.target)) {
+      setShowMenu(false);
+    }
+  };
+
+  // Add event listener for clicks outside the menu
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className='flex flex-row justify-between px-3 relative sm:justify-around w-full sm:max-w-screen-xl  h-8 sm:h-16 mx-auto items-center bg-[#222222]  py-2 relative'>
       <div className=' text-lg sm:text-3xl text-white font-bold'>tech<span className=' text-lg sm:text-3xl text-[#25AEFF] '>X</span></div>
@@ -15,7 +34,7 @@ function NavBar() {
 
       <RxHamburgerMenu  color='#25AEFF' className='visible  sm:hidden' onClick={()=>(setShowMenu(prev=>!prev))}/>
 
-        {showMenu && <div className='flex flex-col bg-[#383838] absolute right-3 top-8 text-xs gap-2 items-center py-2 px-3 text-white font-semibold rounded-md'>
+        {showMenu && <div ref={toggleRef} className='flex z-50 flex-col bg-[#383838] absolute right-3 top-8 text-xs gap-2 items-center py-2 px-3 text-white font-semibold rounded-md'>
           <span>HOME</span>
           <span onClick={()=>(setShow(prev=>!prev))}>PRODUCTS</span>
           <span>SUPPORT</span>
@@ -30,7 +49,7 @@ function NavBar() {
         <button className='bg-[#25AEFF] text-black rounded-lg px-4 py-1 cursor-pointer'>LOGIN</button>
       </div>
 
-      {show && <div className='flex flex-col bg-[#383838] w-24 gap-2 py-2  absolute sm:right-[33vh] right-24 top-16 text-xs sm:text-base sm:top-[7vh] justify-center items-center text-white rounded-md font-semibold'>
+      {show && <div ref={menuRef} className='flex flex-col bg-[#383838] w-24 gap-2 py-2 z-50 absolute sm:right-[33vh] right-24 top-16 text-xs sm:text-base sm:top-[7vh] justify-center items-center text-white rounded-md font-semibold'>
         <span className='sm:border px-4 py-1 border-[#25AEFF]'>laptop</span>
         <span className='sm:border px-4 py-1 border-[#25AEFF]'>laptop</span>
         <span className='sm:border px-4 py-1 border-[#25AEFF]'>laptop</span>
