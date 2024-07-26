@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer'
 import Detail from './pages/Details/Detail'
 import Products from './pages/Products/Products'
 import StoreProvider from './context/store'
+import {ToastContainer} from 'react-toastify'
 function App() {
 
 
@@ -24,6 +25,7 @@ function App() {
     </Routes>
     <Footer/>
     </BrowserRouter>
+    <ToastContainer/>
     </StoreProvider>
   )
 }
