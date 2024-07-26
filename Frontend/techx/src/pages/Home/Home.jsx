@@ -71,13 +71,13 @@ function Home() {
 
 
       {/* Categories */}
-      <div className='flex flex-col justify-center w-full mx-auto mt-14 mb-14'>
+      <div className='flex flex-col justify-center w-full mx-auto mt-14 mb-14 overflow-hidden'>
         <div className='flex flex-col relative items-center mb-14'>
           <h1 className='text-3xl sm:text-5xl text-[#1D4759] font-bold tracking-wide'>CATEGORIES</h1>
           <p className='text-white text-xs sm:text-sm absolute top-6 sm:top-8'>What tech essentials are you shopping for? </p>
         </div>
         
-        <div className='w-full  flex flex-row justify-center items-center mx-10'>
+        <div className='w-full  flex flex-row justify-center items-center mx-10 overflow-hidden'>
           <Swiper
           
             spaceBetween={slidersettings.spaceBetween}
