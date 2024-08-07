@@ -1,13 +1,16 @@
 package com.SQA.QATestForShop.manageProduct;
 
+import com.SQA.QATestForShop.User.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,6 +37,16 @@ public class ProductServiceTest {
         when(photo.getName()).thenReturn("photoName");
         when(photo.getBytes()).thenReturn(new byte[0]);
         when(photo.getContentType()).thenReturn("image/jpeg");
+
+        when(productRequest.getName()).thenReturn("Test Product");
+        when(productRequest.getPrice()).thenReturn(BigDecimal.valueOf(99.99));
+        when(productRequest.getDescription()).thenReturn("Test Description");
+        when(productRequest.getAvailability()).thenReturn(true);
+        when(productRequest.getCategory()).thenReturn("Test Category");
+        when(productRequest.getBrand()).thenReturn("Test Brand");
+        when(productRequest.getSpecifications()).thenReturn("Test Specifications");
+        when(productRequest.getWarrantyInfo()).thenReturn("Test Warranty");
+        when(productRequest.getDeliveryCharge()).thenReturn(500.0);
 
         productService.addProduct(photo, productRequest);
 
@@ -80,17 +93,62 @@ public class ProductServiceTest {
         String productId = "123";
         MultipartFile photo = mock(MultipartFile.class);
         ProductRequest productRequest = mock(ProductRequest.class);
-        Product existingProduct = mock(Product.class);
 
-        when(productRepository.findById(productId)).thenReturn(Optional.of(existingProduct));
+
+        when(productRequest.getName()).thenReturn("Test Product");
+        when(productRequest.getPrice()).thenReturn(BigDecimal.valueOf(99.99));
+        when(productRequest.getDescription()).thenReturn("Test Description");
+        when(productRequest.getAvailability()).thenReturn(true);
+        when(productRequest.getCategory()).thenReturn("Test Category");
+        when(productRequest.getBrand()).thenReturn("Test Brand");
+        when(productRequest.getSpecifications()).thenReturn("Test Specifications");
+        when(productRequest.getWarrantyInfo()).thenReturn("Test Warranty");
+        when(productRequest.getDeliveryCharge()).thenReturn(500.0);
         when(photo.getName()).thenReturn("photoName");
         when(photo.getBytes()).thenReturn(new byte[0]);
         when(photo.getContentType()).thenReturn("image/jpeg");
 
-        boolean result = productService.updateProduct(productId, photo, productRequest);
+        ProductImage productImage = ProductImage.builder()
+                .name(photo.getName())
+                .data(photo.getBytes())
+                .photoType(photo.getContentType())
+                .build();
 
+        Product existingProduct = Product.builder()
+                .specifications(productRequest.getSpecifications())
+                .availability(productRequest.getAvailability())
+                .brand(productRequest.getBrand())
+                .category(productRequest.getCategory())
+                .productImage(productImage)
+                .description(productRequest.getDescription())
+                .price(productRequest.getPrice())
+                .warrantyInfo(productRequest.getWarrantyInfo())
+                .name(productRequest.getName())
+                .deliveryCharge(productRequest.getDeliveryCharge())
+                .build();
+
+        when(productRepository.findById(productId)).thenReturn(Optional.of(existingProduct));
+
+
+        boolean result = productService.updateProduct(productId, photo, productRequest);
         assertTrue(result);
+
         verify(productRepository, times(1)).save(existingProduct);
+
+        ArgumentCaptor<Product> productArgumentCaptor = ArgumentCaptor.forClass(Product.class);
+        verify(productRepository).save(productArgumentCaptor.capture());
+        Product product = productArgumentCaptor.getValue();
+
+        assertNotNull(product);
+        assertEquals("Test Product", product.getName());
+        assertEquals(BigDecimal.valueOf(99.99), product.getPrice());
+        assertEquals("Test Description", product.getDescription());
+        assertEquals(true, product.getAvailability());
+        assertEquals("Test Category", product.getCategory());
+        assertEquals("Test Brand", product.getBrand());
+        assertEquals("Test Specifications", product.getSpecifications());
+        assertEquals("Test Warranty", product.getWarrantyInfo());
+        assertEquals(500.0,product.getDeliveryCharge());
     }
 
     @Test

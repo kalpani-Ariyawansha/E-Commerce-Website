@@ -1,5 +1,6 @@
 package com.SQA.QATestForShop.User;
 
+import com.SQA.QATestForShop.payment.Payment;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -29,6 +30,8 @@ public class User implements UserDetails {
 
     @DBRef
     private UserPersonalDetails userPersonalDetails;
+
+    private List<Payment> payments;
 
 
     @Override

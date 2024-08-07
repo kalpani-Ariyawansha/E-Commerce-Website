@@ -46,7 +46,7 @@ public class ProductControllerTest {
     @Test
     public void testAddProduct() throws Exception {
         MockMultipartFile photo = new MockMultipartFile("photo", "photo.jpg", MediaType.IMAGE_JPEG_VALUE, "photo".getBytes());
-        ProductRequest productRequest = new ProductRequest("Product1", BigDecimal.valueOf(100), "Description", true, "Category1", "Brand1", "Specifications", "Warranty");
+        ProductRequest productRequest = new ProductRequest("Product1", BigDecimal.valueOf(100), "Description", true, "Category1", "Brand1", "Specifications", "Warranty", 500.0);
         String productDetails = new ObjectMapper().writeValueAsString(productRequest);
         MockMultipartFile productDetailsPart = new MockMultipartFile("productDetails", "", "application/json",productDetails.getBytes());
 
@@ -62,13 +62,11 @@ public class ProductControllerTest {
                             return request;
                         }))
                 .andExpect(status().isOk());
-
-
     }
 
     @Test
     public void testGetAllProducts() throws Exception {
-        Product product = new Product("1", "Product1", BigDecimal.valueOf(100), "Description", true, "Category1", "Brand1", "Specifications", "Warranty", null);
+        Product product = new Product("1", "Product1", BigDecimal.valueOf(100), "Description", true, "Category1", "Brand1", "Specifications", "Warranty", null,500.0);
         List<Product> productList = Arrays.asList(product);
 
         when(productService.getProducts()).thenReturn(productList);
@@ -79,7 +77,7 @@ public class ProductControllerTest {
 
     @Test
     public void testGetProduct() throws Exception {
-        Product product = new Product("1", "Product1", BigDecimal.valueOf(100), "Description", true, "Category1", "Brand1", "Specifications", "Warranty", null);
+        Product product = new Product("1", "Product1", BigDecimal.valueOf(100), "Description", true, "Category1", "Brand1", "Specifications", "Warranty",null, 500.0);
         Optional<Product> optionalProduct = Optional.of(product);
 
         when(productService.getProduct("1")).thenReturn(optionalProduct);
@@ -91,7 +89,7 @@ public class ProductControllerTest {
     @Test
     public void testUpdateProduct() throws Exception {
         MockMultipartFile photo = new MockMultipartFile("photo", "photo.jpg", MediaType.IMAGE_JPEG_VALUE, "photo".getBytes());
-        ProductRequest productRequest = new ProductRequest("Product1", BigDecimal.valueOf(100), "Description", true, "Category1", "Brand1", "Specifications", "Warranty");
+        ProductRequest productRequest = new ProductRequest("Product1", BigDecimal.valueOf(100), "Description", true, "Category1", "Brand1", "Specifications", "Warranty",500.0);
         String productDetails = new ObjectMapper().writeValueAsString(productRequest);
         MockMultipartFile productDetailsPart = new MockMultipartFile("productDetails", "", "application/json",productDetails.getBytes());
 

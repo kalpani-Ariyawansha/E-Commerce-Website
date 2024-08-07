@@ -30,6 +30,7 @@ public class ProductService {
                 .price(productRequest.getPrice())
                 .warrantyInfo(productRequest.getWarrantyInfo())
                 .name(productRequest.getName())
+                .deliveryCharge(productRequest.getDeliveryCharge())
                 .build();
 
         productRepository.save(product);
@@ -86,6 +87,9 @@ public class ProductService {
             }
             if (productRequest.getName() != null) {
                 product.setName(productRequest.getName());
+            }
+            if(productRequest.getDeliveryCharge() != null){
+                product.setDeliveryCharge(product.getDeliveryCharge());
             }
             productRepository.save(product);
             return true;

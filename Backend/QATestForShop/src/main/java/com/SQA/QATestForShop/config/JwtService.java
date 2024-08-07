@@ -42,7 +42,7 @@ public class JwtService {
                     .compact();
     }
 
-    private String populateAuthorities(Collection<? extends GrantedAuthority> authorities) {
+    String populateAuthorities(Collection<? extends GrantedAuthority> authorities) {
         Set<String> authoritiesSet = new HashSet<>();
         for(GrantedAuthority authority: authorities){
             authoritiesSet.add(authority.getAuthority());
@@ -55,7 +55,7 @@ public class JwtService {
         return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    private boolean isTokenExpired(String token) {
+    boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
@@ -63,7 +63,7 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    private Claims extractAllClaims(String token){
+    Claims extractAllClaims(String token){
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
@@ -72,7 +72,7 @@ public class JwtService {
                 .getBody();
     }
 
-    private Key getSignInKey() {
+    Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }

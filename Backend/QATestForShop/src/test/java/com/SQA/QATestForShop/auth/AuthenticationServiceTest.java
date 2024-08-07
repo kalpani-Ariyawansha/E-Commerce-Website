@@ -2,10 +2,12 @@ package com.SQA.QATestForShop.auth;
 
 import com.SQA.QATestForShop.User.Role;
 import com.SQA.QATestForShop.User.User;
+import com.SQA.QATestForShop.User.UserPersonalDetails;
 import com.SQA.QATestForShop.User.UserRepository;
 import com.SQA.QATestForShop.config.JwtService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -13,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,6 +67,16 @@ public class AuthenticationServiceTest {
         assertEquals("USER", user.getRole().toString());
         assertEquals("jwtToken", response.getToken());
         verify(userRepository, times(1)).save(any(User.class));
+
+        ArgumentCaptor<User>userArgumentCaptor = ArgumentCaptor.forClass(User.class);
+        verify(userRepository).save(userArgumentCaptor.capture());
+        User userDetails = userArgumentCaptor.getValue();
+
+        assertNotNull(userDetails);
+        assertEquals("theekshana@gmail.com", userDetails.getEmail());
+        assertEquals("USER", userDetails.getRole().toString());
+        assertEquals("Theekshana", userDetails.getFullName());
+        assertEquals("encodedPassword",  userDetails.getPassword());
     }
 
     @Test

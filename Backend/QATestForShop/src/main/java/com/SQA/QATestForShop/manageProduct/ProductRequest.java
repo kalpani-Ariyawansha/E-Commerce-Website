@@ -21,5 +21,6 @@ public class ProductRequest {
     private String brand;
     private String specifications;
     private String warrantyInfo;
+    private Double deliveryCharge;
 
 }
