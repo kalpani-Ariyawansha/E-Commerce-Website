@@ -3,7 +3,7 @@ import { CiStar } from "react-icons/ci";
 import MSI from '../../assets/msi.png'
 import { useNavigate } from 'react-router-dom';
 function PopularCard({item}) {
-  
+   console.log(item);
   const navigate=useNavigate()
   return (
     <div className='flex flex-col bg-[#383838] max-w-[40vh] gap-8 rounded-md py-3 min-h-[40vh]' onClick={()=>(navigate(`/details`,{ state: { item } }))}>

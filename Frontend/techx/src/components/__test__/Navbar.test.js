@@ -11,6 +11,13 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe("NavBar", () => {
+  let navigate;
+
+  beforeEach(() => {
+    navigate = jest.fn();
+    useNavigate.mockReturnValue(navigate);
+  });
+
   it('renders LOGIN button', () => {
     render(
       <Router>
@@ -43,21 +50,17 @@ describe("NavBar", () => {
       </Router>
     );
 
-    // Click the LOGIN button to open the login form
     const loginButton = screen.getByText('LOGIN');
     fireEvent.click(loginButton);
 
-    // Click on Register link to switch to sign-up form
     const registerLink = screen.getByText('Register');
     fireEvent.click(registerLink);
 
-    // Check that the sign-up form is displayed
     expect(screen.getByText('Create an Account')).toBeInTheDocument();
     expect(screen.getByLabelText('Email')).toBeInTheDocument();
     expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument();
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
 
-    // Check that the SIGN UP button is present
     const signUpButton = screen.getByText('SIGN UP');
     expect(signUpButton).toBeInTheDocument();
   });
@@ -69,11 +72,9 @@ describe("NavBar", () => {
       </Router>
     );
 
-    // Click the LOGIN button to open the login form
     const loginButton = screen.getByText('LOGIN');
     fireEvent.click(loginButton);
 
-    // Check that the login form is displayed
     const userNameInput = screen.getByLabelText('User Name');
     fireEvent.change(userNameInput, { target: { value: 'testuser' } });
 
@@ -87,15 +88,12 @@ describe("NavBar", () => {
       </Router>
     );
 
-    // Click the LOGIN button to open the login form
     const loginButton = screen.getByText('LOGIN');
     fireEvent.click(loginButton);
 
-    // Click on Register link to switch to sign-up form
     const registerLink = screen.getByText('Register');
     fireEvent.click(registerLink);
 
-    // Check that the email field accepts email input
     const emailInput = screen.getByLabelText('Email');
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
 
@@ -109,15 +107,12 @@ describe("NavBar", () => {
       </Router>
     );
 
-    // Click the LOGIN button to open the login form
     const loginButton = screen.getByText('LOGIN');
     fireEvent.click(loginButton);
 
-    // Click on Register link to switch to sign-up form
     const registerLink = screen.getByText('Register');
     fireEvent.click(registerLink);
 
-    // Check that the mobile number field accepts text input
     const mobileNumberInput = screen.getByLabelText('Mobile Number');
     fireEvent.change(mobileNumberInput, { target: { value: '1234567890' } });
 
@@ -131,11 +126,9 @@ describe("NavBar", () => {
       </Router>
     );
 
-    // Click the LOGIN button to open the login form
     const loginButton = screen.getByText('LOGIN');
     fireEvent.click(loginButton);
 
-    // Check that the login form is displayed
     const passwordInput = screen.getByLabelText('Password');
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
 
@@ -143,24 +136,66 @@ describe("NavBar", () => {
   });
 
   it('navigates to products page when search icon is clicked', () => {
-    const navigate = jest.fn();
-    useNavigate.mockReturnValue(navigate);
-
     render(
       <Router>
         <NavBar />
       </Router>
     );
 
-    // Simulate user typing in the search input
-    const input = screen.getByPlaceholderText('Find your product...');
-    fireEvent.change(input, { target: { value: 'laptop' } });
+    fireEvent.change(screen.getByPlaceholderText('Find your product...'), { target: { value: 'laptop' } });
+    fireEvent.click(screen.getByTestId('search-icon'));
 
-    // Simulate clicking the search icon
-    const searchIcon = screen.getByTestId('search-icon');
-    fireEvent.click(searchIcon);
-
-    // Verify navigation function was called with correct path
     expect(navigate).toHaveBeenCalledWith('/products/laptop');
+  });
+
+  it('closes the login form when the close button is clicked', () => {
+    render(
+      <Router>
+        <NavBar />
+      </Router>
+    );
+
+    fireEvent.click(screen.getByText('LOGIN'));
+    fireEvent.click(screen.getByTestId('close-icon'));
+
+    expect(screen.queryByText('Welcome Back')).not.toBeInTheDocument();
+  });
+
+  it('navigates to home page when HOME link is clicked', () => {
+    render(
+      <Router>
+        <NavBar />
+      </Router>
+    );
+
+    fireEvent.click(screen.getByText('HOME'));
+
+    expect(navigate).toHaveBeenCalledWith('/');
+  });
+
+  it('navigates to support page when SUPPORT link is clicked', () => {
+    render(
+      <Router>
+        <NavBar />
+      </Router>
+    );
+
+    fireEvent.click(screen.getByText('SUPPORT'));
+
+    expect(navigate).toHaveBeenCalledWith('/support');
+  });
+
+  it('handles form input focus correctly', () => {
+    render(
+      <Router>
+        <NavBar />
+      </Router>
+    );
+
+    fireEvent.click(screen.getByText('LOGIN'));
+
+    const userNameInput = screen.getByLabelText('User Name');
+    userNameInput.focus();
+    expect(userNameInput).toHaveFocus();
   });
 });

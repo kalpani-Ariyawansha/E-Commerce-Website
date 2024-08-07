@@ -67,7 +67,7 @@ function NavBar() {
           className='flex z-50 flex-col bg-[#383838] absolute right-3 top-8 text-xs gap-2 items-center py-2 px-3 text-white font-semibold rounded-md'
         >
           <span onClick={() => navigate('/')}>HOME</span>
-          <span onClick={() => navigate('support')}>SUPPORT</span>
+          <span onClick={() => navigate('/support')}>SUPPORT</span>
           <button
             className='bg-[#25AEFF] text-black rounded-lg px-4 py-1 cursor-pointer'
             onClick={() => setShowLogin(true)}
@@ -81,7 +81,7 @@ function NavBar() {
         <span className='flex flex-col relative gap-2'>
           <span
             className={selected === 'HOME' ? 'cursor-pointer underline-space' : 'cursor-pointer'}
-            onClick={() => setSelected((prev) => (prev === 'ALL' ? 'HOME' : 'ALL'))}
+            onClick={() => {setSelected((prev) => (prev === 'ALL' ? 'HOME' : 'ALL')); navigate('/');}}
           >
             HOME
           </span>
@@ -89,7 +89,7 @@ function NavBar() {
         <span className='flex flex-col relative gap-2'>
           <span
             className={selected === 'SUPPORT' ? 'cursor-pointer underline-space' : 'cursor-pointer'}
-            onClick={() => setSelected((prev) => (prev === 'ALL' ? 'SUPPORT' : 'ALL'))}
+            onClick={() => {setSelected((prev) => (prev === 'ALL' ? 'SUPPORT' : 'ALL')); navigate('/support');}}
           >
             SUPPORT
           </span>
@@ -112,6 +112,7 @@ function NavBar() {
               className='absolute right-2 top-2 text-[#25AEFF] cursor-pointer hover:text-[#376f8f]'
               size={22}
               onClick={() => setShowLogin(false)}
+              data-testid='close-icon'
             />
             <div className='flex flex-col gap-2'>
               <span className='flex flex-col gap-1'>
@@ -121,7 +122,8 @@ function NavBar() {
                 <input
                   id='username'
                   type='text'
-                  className='flex text-white px-3 py-2 w-full bg-[#383838] rounded-md text-xs'
+                  className='flex text-black px-3 py-2 w-full bg-[#f0f0f0] rounded-md text-xs'
+                  aria-label='User Name'
                 />
               </span>
               <span className='flex flex-col gap-1'>
@@ -131,12 +133,11 @@ function NavBar() {
                 <input
                   id='email'
                   type='email'
-                  className='flex text-white px-3 py-2 w-full bg-[#383838] rounded-md text-xs'
+                  className='flex text-black px-3 py-2 w-full bg-[#f0f0f0] rounded-md text-xs'
+                  aria-label='Email'
                 />
               </span>
-              {status === 'LOGIN' ? (
-                ''
-              ) : (
+              {status === 'REGISTER' && (
                 <span className='flex flex-col gap-1'>
                   <label htmlFor='mobile' className='text-xs text-black font-medium'>
                     Mobile Number
@@ -144,7 +145,8 @@ function NavBar() {
                   <input
                     id='mobile'
                     type='text'
-                    className='flex text-white px-3 py-2 w-full bg-[#383838] rounded-md text-xs'
+                    className='flex text-black px-3 py-2 w-full bg-[#f0f0f0] rounded-md text-xs'
+                    aria-label='Mobile Number'
                   />
                 </span>
               )}
@@ -155,7 +157,8 @@ function NavBar() {
                 <input
                   id='password'
                   type='password'
-                  className='flex text-white px-3 py-2 w-full bg-[#383838] rounded-md text-xs'
+                  className='flex text-black px-3 py-2 w-full bg-[#f0f0f0] rounded-md text-xs'
+                  aria-label='Password'
                 />
               </span>
               <button

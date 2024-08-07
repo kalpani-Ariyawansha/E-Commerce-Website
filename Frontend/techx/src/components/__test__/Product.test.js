@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -54,6 +53,56 @@ describe('Products Component', () => {
     useParams.mockReturnValue({ category: 'toys' });
     renderWithStore(<Products />, { providerProps });
 
+    expect(screen.getByText('No products found')).toBeInTheDocument();
+  });
+
+  test('renders no products message when category is empty', () => {
+    useParams.mockReturnValue({ category: '' });
+
+    const providerProps = {
+      value: {
+        ItemData: mockItemData,
+      },
+    };
+
+    renderWithStore(<Products />, { providerProps });
+
+    // Ensure the error message for no products is displayed
+    expect(screen.getByText('No products found')).toBeInTheDocument();
+  });
+
+  test('renders no products message when ItemData is empty', () => {
+    useParams.mockReturnValue({ category: 'electronics' });
+
+    const providerProps = {
+      value: {
+        ItemData: [], // Empty data
+      },
+    };
+
+    renderWithStore(<Products />, { providerProps });
+
+    // Ensure the error message for no products is displayed
+    expect(screen.getByText('No products found')).toBeInTheDocument();
+  });
+
+  test('handles category with no products correctly', () => {
+    useParams.mockReturnValue({ category: 'furniture' });
+
+    const providerProps = {
+      value: {
+        ItemData: [
+          {
+            category: 'electronics',
+            items: [{ name: 'Laptop' }]
+          }
+        ],
+      },
+    };
+
+    renderWithStore(<Products />, { providerProps });
+
+    // Ensure the error message for no products is displayed
     expect(screen.getByText('No products found')).toBeInTheDocument();
   });
 });

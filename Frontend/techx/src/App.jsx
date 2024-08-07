@@ -9,6 +9,7 @@ import Detail from './pages/Details/Detail'
 import Products from './pages/Products/Products'
 import StoreProvider from './context/store'
 import {ToastContainer} from 'react-toastify'
+import Support from './pages/Support/Support'
 function App() {
 
 
@@ -22,6 +23,7 @@ function App() {
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/details" element={<Detail />} />
+      <Route path="/support" element={<Support />} />
     </Routes>
     <Footer/>
     </BrowserRouter>

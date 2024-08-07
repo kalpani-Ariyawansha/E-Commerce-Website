@@ -1,3 +1,4 @@
+/** @type {import('jest').Config} */
 const config = {
   testEnvironment: 'jest-environment-jsdom',
   transform: {
@@ -14,6 +15,17 @@ const config = {
     "/node_modules/(?!swiper|react-icons).+\\.mjs$", // Transform .mjs files from swiper and react-icons
     "/node_modules/(?!(swiper|other-package-to-transform)/)"
   ],
+  collectCoverage: true, // Enable coverage collection
+  coverageDirectory: "coverage", // Directory where Jest should output its coverage files
+  coverageReporters: ["html", "text"], // Report formats to generate
+  coverageThreshold: {
+    global: {
+      branches: 80, // Minimum % of branches covered
+      functions: 80, // Minimum % of functions covered
+      lines: 80, // Minimum % of lines covered
+      statements: 80 // Minimum % of statements covered
+    }
+  }
 };
 
 module.exports = config;
