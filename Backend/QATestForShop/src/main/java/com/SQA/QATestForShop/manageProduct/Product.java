@@ -27,4 +27,5 @@ public class Product {
     private String specifications;
     private String warrantyInfo;
     private ProductImage productImage;
+    private Double deliveryCharge;
 }
