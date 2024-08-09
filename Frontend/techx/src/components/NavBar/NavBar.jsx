@@ -59,6 +59,7 @@ function NavBar() {
       } 
     ).catch(
       error =>{
+        alert("Unsucessfull. ")
         console.log(error)
       }
     )
@@ -75,6 +76,7 @@ function NavBar() {
        } 
      ).catch(
        error =>{
+        alert("Unsucessfull. User has already existed.")
          console.log(error)
        }
      )
@@ -97,8 +99,8 @@ function NavBar() {
       <div className='text-lg font-bold text-white sm:text-3xl'>tech<span className=' text-lg sm:text-3xl text-[#25AEFF] '>X</span></div>
 
       <div className='flex flex-row justify-between items-center w-[50vh] rounded-2xl bg-[#383838] px-2 '>
-      <input value={search} type='text' placeholder='Find your product...'  className=' h-8 hidden sm:flex w-full bg-[#383838] focus:outline-none text-white rounded-2xl px-2 text-xs' onChange={(e)=>(setSearch(e.target.value))}/>
-      <IoMdSearch  size={20} color='white' onClick={searchHandler} className='cursor-pointer' />
+      <input value={search} type='text' placeholder='Find your product...'  className=' h-8 hidden sm:flex w-full bg-[#383838] focus:outline-none text-white rounded-2xl px-2 text-xs' id='667' onChange={(e)=>(setSearch(e.target.value))}/>
+      <IoMdSearch  size={20} color='white' onClick={searchHandler} className='cursor-pointer' id = '699'/>
       </div>
 
       <RxHamburgerMenu  color='#25AEFF' className='visible sm:hidden' onClick={()=>(setShowMenu(prev=>!prev))}/>
@@ -107,7 +109,7 @@ function NavBar() {
           <span onClick={()=>(navigate('/'))}>HOME</span>
           
           <span onClick={()=>(navigate('support'))}>SUPPORT</span>
-          <button className='bg-[#25AEFF] text-black rounded-lg px-4 py-1 cursor-pointer' onClick={()=>(setShowLogin(true))}>LOGIN</button>
+          <button className='bg-[#25AEFF] text-black rounded-lg px-4 py-1 cursor-pointer' onClick={()=>(setShowLogin(true))} >LOGIN</button>
            
           </div>}
 
@@ -115,7 +117,7 @@ function NavBar() {
         <span className='relative flex flex-col gap-2 '><span className={selected==='HOME' ? 'cursor-pointer underline-space ':'cursor-pointer'} onClick={()=>(setSelected(prev=>prev==="ALL"? "HOME":"ALL"))}>HOME</span></span>
         
         <span className='relative flex flex-col gap-2 '><span className={selected==='SUPPORT' ? 'cursor-pointer underline-space ':'cursor-pointer'} onClick={()=>(setSelected(prev=>prev==="ALL"? "SUPPORT":"ALL"))}>SUPPORT</span></span>
-        <button className='bg-[#25AEFF] text-black rounded-lg px-4 py-1 cursor-pointer' onClick={()=>(setShowLogin(true))}>LOGIN</button>
+        <button className='bg-[#25AEFF] text-black rounded-lg px-4 py-1 cursor-pointer' onClick={()=>(setShowLogin(true)) } id ="1223">LOGIN</button>
       </div>
 
         {
@@ -145,7 +147,7 @@ function NavBar() {
 
                     <button onClick={handleSubmit} className='flex justify-center items-center px-2 mt-2 bg-[#25AEFF] rounded-md py-2 font-medium text-sm transition-all hover:bg-[#35769e] cursor-pointer'>{status==='LOGIN'?"SIGN IN":"SIGN UP"}</button>
                     
-                    {status==='LOGIN'?(<span className='flex flex-row justify-center gap-1 text-xs font-medium text-black '>Don't have an account?<span className='text-[#25AEFF] cursor-pointer' onClick={()=>(setStatus('REGISTER'))}>Register</span></span>):
+                    {status==='LOGIN'?(<span className='flex flex-row justify-center gap-1 text-xs font-medium text-black '>Don't have an account?<span className='text-[#25AEFF] cursor-pointer' onClick={()=>(setStatus('REGISTER'))} id="223">Register</span></span>):
                     (<span className='flex flex-row justify-center gap-1 text-xs font-medium text-black '>All ready have an account?<span className='text-[#25AEFF] cursor-pointer' onClick={()=>(setStatus('LOGIN'))}>Login</span></span>)}
                     </div>
 
