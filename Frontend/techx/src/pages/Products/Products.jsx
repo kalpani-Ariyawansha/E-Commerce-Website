@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import PopularCard from '../../components/Popularcard/PopularCard'
 import { useParams } from 'react-router-dom'
 import { store } from '../../context/store'
 
 function Products() {
   const {ItemData}=useContext(store)
-  
+  const[id,setId] = useState();
   const {category}=useParams()
   
   const error=()=>{
@@ -16,7 +16,7 @@ function Products() {
   }
 
   return (
-    <div className='flex gap-9 mx-auto justify-start mt-10 mb-10 flex-wrap max-w-screen-xl'>
+    <div className='flex flex-wrap justify-start max-w-screen-xl mx-auto mt-10 mb-10 gap-9 '>
       {error()}
       {ItemData?.filter((item)=>(item.category.toLowerCase()===category.toLowerCase())).map((item,i)=>(item.items.map((item,i)=>(<PopularCard item={item} key={i}/>))) )}
         

@@ -35,7 +35,7 @@ function Home() {
     }
   }
 
-  
+
 
   return (
     <div className='flex flex-col max-w-screen-xl mx-auto '>
@@ -61,13 +61,13 @@ function Home() {
       </div>
 
       {/* Categories */}
-      <div className='flex flex-col justify-center w-full mx-auto mt-14 mb-14 overflow-hidden'>
-        <div className='flex flex-col relative items-center mb-14'>
+      <div className='flex flex-col justify-center w-full mx-auto overflow-hidden mt-14 mb-14'>
+        <div className='relative flex flex-col items-center mb-14'>
           <h1 className='text-3xl sm:text-5xl text-[#1D4759] font-bold tracking-wide'>CATEGORIES</h1>
-          <p className='text-white text-xs sm:text-sm absolute top-6 sm:top-8'>What tech essentials are you shopping for? </p>
+          <p className='absolute text-xs text-white sm:text-sm top-6 sm:top-8'>What tech essentials are you shopping for? </p>
         </div>
 
-        <div className='w-full flex flex-row justify-center items-center mx-10 overflow-hidden'>
+        <div className='flex flex-row items-center justify-center w-full mx-10 overflow-hidden'>
           <Swiper
             spaceBetween={slidersettings.spaceBetween}
             slidesPerView={slidersettings.slidesPerView}
@@ -90,12 +90,12 @@ function Home() {
 
       {/* Popular section */}
       <div className='flex flex-col mx-auto mt-14 mb-14'>
-        <div className='flex flex-col relative items-center mb-14'>
+        <div className='relative flex flex-col items-center mb-14'>
           <h1 className='text-3xl sm:text-5xl text-[#1D4759] font-bold tracking-wide'>POPULAR PRODUCTS</h1>
-          <p className='text-white text-xs sm:text-sm absolute top-6 sm:top-8'>Looking for the best in tech?</p>
+          <p className='absolute text-xs text-white sm:text-sm top-6 sm:top-8'>Looking for the best in tech?</p>
         </div>
 
-        <div className='grid grid-cols-1 mx-auto sm:grid-cols-4 gap-6 sm:gap-3'>
+        <div className='grid grid-cols-1 gap-6 mx-auto sm:grid-cols-4 sm:gap-3'>
           <PopularCard />
           <PopularCard />
           <PopularCard />
@@ -104,8 +104,10 @@ function Home() {
       </div>
 
       {/* Contact us */}
+
       <Contact/>
       
+
     </div>
   );
 }

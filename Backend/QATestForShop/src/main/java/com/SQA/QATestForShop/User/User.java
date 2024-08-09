@@ -1,7 +1,9 @@
 package com.SQA.QATestForShop.User;
 
+import com.SQA.QATestForShop.payment.Payment;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,12 +25,15 @@ public class User implements UserDetails {
     private String id;
     private String userName;
     private String fullName;
+    @Indexed(unique = true)
     private String email;
     private String password;
     private Role role;
 
     @DBRef
     private UserPersonalDetails userPersonalDetails;
+
+    private List<Payment> payments;
 
 
     @Override
