@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 function Header({item}) {
 const navigate=useNavigate()
-
+console.log(item);
   return (
     <div className='flex flex-row bg-[#383838] h-full w-full rounded-lg'>
 
